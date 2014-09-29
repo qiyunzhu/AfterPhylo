@@ -74,7 +74,6 @@ for (my $i=0; $i<=$#ARGV; $i++){
 		$switches{"rate"} = 1 if ($s eq "-average");
 		$switches{"shrink"} = 1 if ($s eq "-simplify");
 		$switches{"ignoreID"} = 1 if ($s eq "-replace");
-		# more switches to be added
 	}else{
 		die "Error: File $s does not exist.\n" unless -e($s);
 		push(@files, $s);
@@ -102,7 +101,7 @@ foreach my $file (@files){
 	open IN, "<$file";
 	if ($format eq "newick"){
 		while (<IN>){
-			$_ =~ s/\s+$//g;
+			s/\s+$//;
 			next unless $_;
 			next if /^#/;
 			$tree .= $_;
@@ -124,7 +123,7 @@ foreach my $file (@files){
 			last if /^\s*tree/i;
 		}
 		close IN;
-		$_ =~ s/\s+$//g;
+		s/\s+$//;
 		$tree = substr($_, index($_, '=')+1);
 		$tree =~ s/^\s+\[&.\]\s+(\()/$1/;
 		$tree =~ s/^\s+//;
@@ -203,7 +202,7 @@ foreach my $file (@files){
 					my $children = $1;
 					
 					# This is an advanced trick.
-					# I don't understand the grammer,
+					# I am not quite clear about the syntax,
 					# but I thank *ysth* for sharing the code with me.
 					# and other people who participated in the discussion.
 					# See this post: http://stackoverflow.com/questions/11741636/perl-replace-the-top-level-numbers-onlny-from-a-tree/
@@ -232,10 +231,10 @@ foreach my $file (@files){
 		my %names;
 		open NAMES, "<".$switches{"annotate"};
 		while (<NAMES>){
-			$_ =~ s/\s+$//g;
+			s/\s+$//;
 			next unless $_;
 			next if /^#/;
-			$_ =~ s/\t+$//;
+			s/\t+$//;
 			if (/\t/){
 				my @a = split ("\t", $_);
 				print "Warning: ID $a[0] is not unique.\n" if $names{$a[0]};
@@ -249,8 +248,7 @@ foreach my $file (@files){
 		close NAMES;
 		foreach my $key (keys %names){
 			if (($format eq "nexus") && ($names{$key} =~ /[.\s]/)){$names{$key} = "'$names{$key}'";}
-			# if ($format eq "newick"){$names{$key} =~ s/\s/_/g;}
-			$tree =~ s/([(,\]])$key([:)\[])/$1$names{$key}$2/g;
+			$tree =~ s/([(,\]])$key([,:)\[])/$1$names{$key}$2/g;
 		}
 	}
 
