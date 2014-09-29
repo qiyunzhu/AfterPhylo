@@ -3,7 +3,7 @@ AfterPhylo
 
 a Perl script for manipulating trees after phylogenetic reconstruction
 
-Version 0.9
+Version 0.9.1
 
 by Qiyun Zhu (<qiyunzhu@gmail.com>)
 
