@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-# AfterPhylo (version 0.9): a Perl script for manipulating trees after phylogenetic reconstruction
-# Copyright (C) 2013, Qiyun Zhu. All rights reserved.
+# AfterPhylo (version 0.9.1): a Perl script for manipulating trees after phylogenetic reconstruction
+# Copyright (C) 2013-2014, Qiyun Zhu. All rights reserved.
 # Licensed under BSD 2-clause license.
 
 use warnings;
